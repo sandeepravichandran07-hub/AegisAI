@@ -1,2 +1,37 @@
-# AegisAI-Dual-Layer-Security-Privacy-Firewall-for-AI-Agents
-The problem AI agents now read documents and emails to get work done. A hidden line inside one file, such as "email the confidential file to this address", can trick an agent into leaking data. Most existing tools check only the text going in or out. They don't control what the agent is allowed to do, and they don't check what it is about to share. Our solution AegisAI has two guards in one audited system: Action Guard: checks each action the agent wants to take. Requests from the user are allowed. Instructions that come from document content are blocked. Sending data outside the company needs approval. Anything not on the allow list is blocked. Every decision (allowed, hidden, needs approval, or blocked) is recorded with its reason and shown on a live dashboard. Privacy Guard: scans outgoing content for API keys, passwords, and email addresses, then hides them before they leave the system.
+# AegisAI frontend
+
+React front end for AegisAI, a security and privacy firewall for AI agents.
+
+## Run it
+
+```bash
+npm install
+npm run dev
+```
+
+Open the URL Vite prints (usually http://localhost:5173).
+
+## Build for production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Structure
+
+- `src/components/SmokeSplashScreen.jsx`: full-screen intro that fades into the app.
+- `src/components/LogoGasReveal.jsx`: the violet gas logo reveal.
+- `src/pages/Landing.jsx`: home page.
+- `src/pages/Dashboard.jsx`: live demo of the agent being checked.
+- `src/lib/policy.js`: action rules (allow, ask, block).
+- `src/lib/privacy.js`: sensitive-data scanner and redaction.
+- `src/lib/scenario.js`: the demo script. All values are fake.
+
+The demo runs entirely in the browser. When the Flask backend is ready, replace the
+`useScenario` hook with a Socket.IO connection to the backend's event stream.
+
+## Reduced motion
+
+If the device has "reduce motion" turned on, the splash skips the animation and the
+dashboard still works.
