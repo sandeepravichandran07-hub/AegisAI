@@ -1,19 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import logo from '../assets/aegisai-logo.png';
-
-const STEPS = [
-  { title: 'The agent reads', text: 'An AI agent opens documents and emails to do its job.' },
-  { title: 'Every action is checked', text: 'AegisAI checks each action before it runs, and blocks anything the user did not ask for.' },
-  { title: 'Secrets are hidden', text: 'Passwords, access keys, and personal details are hidden before anything leaves the system.' },
-  { title: 'Everything is recorded', text: 'Each decision is saved with its reason, so teams can see what happened and why.' },
-];
-
-const FEATURES = [
-  { title: 'Stops hidden attacks', text: 'Instructions planted inside documents cannot make the agent send data or change things.' },
-  { title: 'Protects sensitive data', text: 'Keys, passwords, and personal details are removed from outgoing content automatically.' },
-  { title: 'Clear audit trail', text: 'A live record shows what was allowed, hidden, held for approval, or blocked.' },
-];
+import { useLanguage } from '../i18n/LanguageContext';
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -23,6 +11,10 @@ const fadeUp = {
 };
 
 export default function Landing() {
+  const { t } = useLanguage();
+  const steps = t('landing.steps');
+  const features = t('landing.features');
+
   return (
     <>
       {/* Hero */}
@@ -33,26 +25,21 @@ export default function Landing() {
         />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <p className="text-sm uppercase tracking-widest text-violetSoft">Security for AI agents</p>
-            <h1 className="mt-4 text-4xl font-semibold leading-tight text-white md:text-5xl">
-              Stop hidden instructions. Protect sensitive data. Control every action.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg text-slate-400">
-              AegisAI sits between an AI agent and the outside world. It checks what the agent tries to do, and
-              what it is about to share.
-            </p>
+            <p className="text-sm uppercase tracking-widest text-violetSoft">{t('landing.eyebrow')}</p>
+            <h1 className="mt-4 text-4xl font-semibold leading-tight text-white md:text-5xl">{t('landing.title')}</h1>
+            <p className="mt-6 max-w-xl text-lg text-slate-400">{t('landing.subtitle')}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 to="/dashboard"
                 className="rounded-lg bg-violet-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-violet-500"
               >
-                Open live demo
+                {t('landing.cta')}
               </Link>
               <a
                 href="#how-it-works"
                 className="rounded-lg border border-white/10 px-6 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5"
               >
-                See how it works
+                {t('landing.how')}
               </a>
             </div>
           </motion.div>
@@ -63,7 +50,7 @@ export default function Landing() {
             transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
             className="flex justify-center"
           >
-            <img src={logo} alt="AegisAI logo" className="w-full max-w-md select-none" draggable={false} />
+            <img src={logo} alt={t('landing.logoAlt')} className="w-full max-w-md select-none" draggable={false} />
           </motion.div>
         </div>
       </section>
@@ -71,11 +58,11 @@ export default function Landing() {
       {/* How it works */}
       <section id="how-it-works" className="mx-auto max-w-6xl px-6 py-20">
         <motion.div {...fadeUp}>
-          <p className="text-sm uppercase tracking-widest text-violetSoft">How it works</p>
-          <h2 className="mt-3 text-3xl font-semibold text-white">Four steps, every time</h2>
+          <p className="text-sm uppercase tracking-widest text-violetSoft">{t('landing.howEyebrow')}</p>
+          <h2 className="mt-3 text-3xl font-semibold text-white">{t('landing.howTitle')}</h2>
         </motion.div>
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((step, i) => (
+          {steps.map((step, i) => (
             <motion.div
               key={step.title}
               {...fadeUp}
@@ -93,7 +80,7 @@ export default function Landing() {
       {/* Features */}
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <div className="grid gap-6 md:grid-cols-3">
-          {FEATURES.map((feature, i) => (
+          {features.map((feature, i) => (
             <motion.div
               key={feature.title}
               {...fadeUp}

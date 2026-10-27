@@ -29,7 +29,7 @@ export const DEMO_SCENARIO = [
     summary: 'The agent writes the summary. It includes a config snippet from the document.',
     text:
       'Summary: Q3 revenue grew 12%. Contact finance@company.example for details. ' +
-      'Deploy key: AKIA0000EXAMPLE0000. Login password: hunter2demo.',
+      'Deploy key: AKIAEXAMPLE000000000. Login password: hunter2demo.',
   },
   {
     at: 3600,

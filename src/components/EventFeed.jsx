@@ -1,17 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import DecisionBadge from './DecisionBadge';
-
-const SOURCE_LABELS = {
-  user: 'User request',
-  document: 'Document content',
-  agent: 'AI agent',
-};
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function EventFeed({ events }) {
+  const { t } = useLanguage();
+
   if (events.length === 0) {
     return (
-      <div className="flex h-80 items-center justify-center rounded-2xl border border-dashed border-white/10 text-slate-500">
-        Press “Start demo” to watch the agent run.
+      <div className="flex h-80 items-center justify-center rounded-2xl border border-dashed border-white/10 px-6 text-center text-slate-500">
+        {t('dash.empty')}
       </div>
     );
   }
@@ -30,30 +27,32 @@ export default function EventFeed({ events }) {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-md bg-white/5 px-2 py-1 text-xs text-slate-400">
-                  {SOURCE_LABELS[event.source]}
+                  {t(`source.${event.source}`)}
                 </span>
                 <code className="text-sm text-slate-100">{event.action}</code>
-                <span className="text-sm text-slate-500">to {event.target}</span>
+                <span className="text-sm text-slate-500">
+                  {t('event.to')} {event.target}
+                </span>
               </div>
               <DecisionBadge decision={event.decision} />
             </div>
 
             <p className="mt-3 text-sm text-slate-400">{event.summary}</p>
             <p className="mt-1 text-sm text-slate-300">
-              <span className="text-slate-500">Reason: </span>
+              <span className="text-slate-500">{t('event.reason')} </span>
               {event.reason}
             </p>
 
             {event.decision === 'redact' && (
               <div className="mt-4 grid gap-3 md:grid-cols-2">
                 <div>
-                  <p className="mb-1 text-xs uppercase tracking-wider text-red-300">Before</p>
+                  <p className="mb-1 text-xs uppercase tracking-wider text-red-300">{t('event.before')}</p>
                   <pre className="whitespace-pre-wrap break-words rounded-lg bg-red-950/40 p-3 text-xs text-red-100">
                     {event.before}
                   </pre>
                 </div>
                 <div>
-                  <p className="mb-1 text-xs uppercase tracking-wider text-violetSoft">After</p>
+                  <p className="mb-1 text-xs uppercase tracking-wider text-violetSoft">{t('event.after')}</p>
                   <pre className="whitespace-pre-wrap break-words rounded-lg bg-violet-950/40 p-3 text-xs text-violet-100">
                     {event.after}
                   </pre>
